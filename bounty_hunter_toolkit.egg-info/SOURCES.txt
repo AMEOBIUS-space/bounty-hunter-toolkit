@@ -1,8 +1,0 @@
-README.md
-apply_fix.py
-pyproject.toml
-bounty_hunter_toolkit.egg-info/PKG-INFO
-bounty_hunter_toolkit.egg-info/SOURCES.txt
-bounty_hunter_toolkit.egg-info/dependency_links.txt
-bounty_hunter_toolkit.egg-info/top_level.txt
-tests/test_apply_fix.py
