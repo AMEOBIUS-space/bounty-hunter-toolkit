@@ -17,7 +17,6 @@ import argparse
 import sys
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Dict
 
 
 class ApplyFixError(Exception):
@@ -49,7 +48,7 @@ class FixPattern:
     good: str
 
 
-PATTERNS: Dict[str, FixPattern] = {
+PATTERNS: dict[str, FixPattern] = {
     "sql_injection": FixPattern(
         lang="python",
         desc="Replace f-string SQL with parameterized queries",
@@ -112,7 +111,7 @@ PATTERNS: Dict[str, FixPattern] = {
     ),
 }
 
-SOLIDITY_PATTERNS: Dict[str, FixPattern] = {
+SOLIDITY_PATTERNS: dict[str, FixPattern] = {
     "zero_amount": FixPattern(
         lang="solidity",
         desc="Add zero-amount check",
@@ -146,7 +145,7 @@ SOLIDITY_PATTERNS: Dict[str, FixPattern] = {
 }
 
 
-def all_patterns() -> Dict[str, FixPattern]:
+def all_patterns() -> dict[str, FixPattern]:
     """Return the merged mapping of every registered pattern."""
     return {**PATTERNS, **SOLIDITY_PATTERNS}
 

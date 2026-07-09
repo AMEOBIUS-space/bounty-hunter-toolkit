@@ -1,0 +1,37 @@
+{
+  "id": 123456,
+  "node_id": "I_kwDOExample123",
+  "url": "https://api.github.com/repos/octocat/Hello-World/issues/1",
+  "html_url": "https://github.com/octocat/Hello-World/issues/1",
+  "number": 1,
+  "title": "SQL injection in user lookup endpoint",
+  "state": "open",
+  "locked": false,
+  "body": "The `user_lookup` endpoint is vulnerable to SQL injection. It builds SQL queries with f-strings and can be exploited via the `name` parameter.\n\nExample vulnerable code:\n```python\ncursor.execute(f\"SELECT * FROM users WHERE name = '{name}'\")\n```\n\n**Bounty:** $100",
+  "user": {
+    "login": "bounty-hunter",
+    "id": 987654,
+    "html_url": "https://github.com/bounty-hunter"
+  },
+  "labels": [
+    {
+      "id": 2080459467,
+      "name": "security",
+      "description": "Security vulnerability",
+      "color": "d73a4a"
+    },
+    {
+      "id": 2080459468,
+      "name": "bounty",
+      "description": "Bug bounty eligible",
+      "color": "ffd700"
+    }
+  ],
+  "assignees": [],
+  "milestone": null,
+  "comments": 3,
+  "created_at": "2026-06-15T10:00:00Z",
+  "updated_at": "2026-07-09T14:22:00Z",
+  "closed_at": null,
+  "repository_url": "https://api.github.com/repos/octocat/Hello-World"
+}

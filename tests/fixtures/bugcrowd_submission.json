@@ -1,0 +1,27 @@
+{
+  "uuid": "bc-1234-5678-90ab-cdef",
+  "submission": {
+    "title": "Insecure direct object reference in invoice download",
+    "state": "not-validated",
+    "severity": 3,
+    "severity_label": "medium",
+    "priority": 2,
+    "reward_amount": 150,
+    "reward_currency": "USD",
+    "description": "The `/api/invoices/<id>` endpoint does not verify that the invoice belongs to the authenticated user.\n\nExample vulnerable request:\n```\nGET /api/invoices/12345 HTTP/1.1\nAuthorization: Bearer <victim-token>\n```",
+    "researcher": {
+      "username": "bounty-hunter",
+      "url": "https://bugcrowd.com/bounty-hunter"
+    },
+    "target": {
+      "name": "api.example.com",
+      "category": "api"
+    },
+    "created_at": "2026-06-15T10:00:00Z",
+    "updated_at": "2026-07-09T14:22:00Z"
+  },
+  "program": {
+    "code_name": "acme-corp",
+    "name": "Acme Corp"
+  }
+}

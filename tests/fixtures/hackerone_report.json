@@ -1,0 +1,36 @@
+{
+  "id": "h1-987654",
+  "type": "report",
+  "attributes": {
+    "title": "Reflected XSS on search endpoint",
+    "state": "new",
+    "severity": {
+      "rating": "medium",
+      "score": 6.5,
+      "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:L/I:L/A:L"
+    },
+    "bug_type": "cross_site_scripting",
+    "bounty": {
+      "amount": 250,
+      "currency": "USD"
+    },
+    "reporter": {
+      "username": "bounty-hunter",
+      "reputation": 1234
+    },
+    "program": {
+      "handle": "acme-corp",
+      "name": "Acme Corp"
+    },
+    "vulnerability_information": "The search parameter `q` is reflected into the response without output encoding.\n\nPayload: `<script>alert(1)</script>`",
+    "created_at": "2026-06-15T10:00:00Z"
+  },
+  "relationships": {
+    "program": {
+      "data": {
+        "id": "acme-corp",
+        "type": "program"
+      }
+    }
+  }
+}
