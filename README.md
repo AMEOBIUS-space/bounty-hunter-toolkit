@@ -72,6 +72,6 @@ MIT
 
 ## Links
 
-- [Main repo](https://github.com/AMEOBIUS/darkbot-ai-templates)
+- [Main repo](https://github.com/aaameobius-crypto/darkbot-ai-templates)
 - [Order bot](https://t.me/darkbot_ai_bot)
 - BTC/USDT/ETH/XMR
