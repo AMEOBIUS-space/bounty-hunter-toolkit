@@ -1,4 +1,5 @@
 # Bounty Hunter Toolkit
+[![PyPI](https://img.shields.io/pypi/v/bounty-hunter-toolkit)](https://pypi.org/project/bounty-hunter-toolkit/)
 
 > Production-ready Python/Solidity/TypeScript fix patterns for GitHub bounty issues
 
