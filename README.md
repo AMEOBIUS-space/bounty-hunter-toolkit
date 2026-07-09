@@ -1,4 +1,8 @@
 # Bounty Hunter Toolkit
+
+## Install
+```bash
+pip install bounty-hunter-toolkit```
 [![PyPI](https://img.shields.io/pypi/v/bounty-hunter-toolkit)](https://pypi.org/project/bounty-hunter-toolkit/)
 
 > Production-ready Python/Solidity/TypeScript fix patterns for GitHub bounty issues
@@ -53,9 +57,17 @@
 
 ```bash
 # Apply a fix pattern
+
+## Install
+```bash
+pip install bounty-hunter-toolkit```
 python apply_fix.py --pattern sql_injection --file app.py
 
 # List all patterns
+
+## Install
+```bash
+pip install bounty-hunter-toolkit```
 python apply_fix.py --list
 ```
 
