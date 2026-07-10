@@ -9,6 +9,8 @@ swapped for the hardened equivalent.
 Usage:
     python apply_fix.py --list
     python apply_fix.py --pattern sql_injection --file app.py
+    python apply_fix.py --apply sql_injection --file app.py
+    python apply_fix.py --find "jwt"
 """
 
 from __future__ import annotations
@@ -145,6 +147,61 @@ SOLIDITY_PATTERNS: dict[str, FixPattern] = {
 }
 
 
+@dataclass(frozen=True)
+class Pattern:
+    """Public pattern view returned by :class:`PatternMatcher`.
+
+    Attributes:
+        name: Pattern identifier.
+        description: Human-readable summary of the fix.
+        vulnerable_code: The vulnerable snippet.
+        fixed_code: The hardened snippet.
+    """
+
+    name: str
+    description: str
+    vulnerable_code: str
+    fixed_code: str
+
+
+class PatternMatcher:
+    """Find and apply security fix patterns by keyword query."""
+
+    def __init__(self, patterns: dict[str, FixPattern] | None = None) -> None:
+        self._patterns = patterns if patterns is not None else all_patterns()
+
+    def find(self, query: str) -> list[Pattern]:
+        """Return patterns whose name, description, or snippets match ``query``.
+
+        The query is split into whitespace-separated terms; a pattern matches if
+        every term appears in at least one of its fields.
+        """
+        terms = [term for term in query.lower().split() if term]
+        if not terms:
+            return []
+
+        matches: list[Pattern] = []
+        for name, pattern in self._patterns.items():
+            haystack = f"{name} {pattern.desc} {pattern.bad} {pattern.good}".lower()
+            if all(term in haystack for term in terms):
+                matches.append(
+                    Pattern(
+                        name=name,
+                        description=pattern.desc,
+                        vulnerable_code=pattern.bad,
+                        fixed_code=pattern.good,
+                    )
+                )
+        return matches
+
+    def apply(self, pattern_name: str, file_path: str | Path) -> int:
+        """Apply a named pattern to ``file_path``.
+
+        This is a convenience wrapper around :func:`apply_fix`.
+        """
+        return apply_fix(pattern_name, file_path)
+
+
 def all_patterns() -> dict[str, FixPattern]:
     """Return the merged mapping of every registered pattern."""
     return {**PATTERNS, **SOLIDITY_PATTERNS}
@@ -209,9 +266,20 @@ def main(argv: list[str] | None = None) -> int:
     """
     parser = argparse.ArgumentParser(description="Bounty Hunter Toolkit")
     parser.add_argument("--list", action="store_true", help="List all patterns")
-    parser.add_argument("--pattern", help="Pattern to apply")
+    parser.add_argument(
+        "--pattern", "--apply", help="Pattern to apply (alias: --apply)"
+    )
     parser.add_argument("--file", help="File to fix")
+    parser.add_argument("--find", help="Find patterns matching a query")
     args = parser.parse_args(argv)
+
+    if args.find:
+        matcher = PatternMatcher()
+        for p in matcher.find(args.find):
+            print(f"{p.name}: {p.description}")
+            print(f"  Vulnerable: {p.vulnerable_code[:80]}")
+            print(f"  Fixed: {p.fixed_code[:80]}")
+        return 0
 
     if args.list:
         list_patterns()
@@ -231,6 +299,9 @@ def main(argv: list[str] | None = None) -> int:
             return 1
         except PermissionError:
             print(f"Permission denied: {args.file}", file=sys.stderr)
+            return 1
+        except OSError as exc:
+            print(f"I/O error: {args.file}: {exc}", file=sys.stderr)
             return 1
         except UnicodeDecodeError:
             print(f"File is not valid UTF-8 text: {args.file}", file=sys.stderr)

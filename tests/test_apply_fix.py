@@ -12,6 +12,7 @@ SCRIPT = REPO_ROOT / "apply_fix.py"
 sys.path.insert(0, str(REPO_ROOT))
 
 from apply_fix import (  # noqa: E402
+    PatternMatcher,
     PatternNotFoundError,
     UnknownPatternError,
     all_patterns,
@@ -130,3 +131,56 @@ def test_main_unknown_pattern_returns_one(tmp_path, capsys):
     f = tmp_path / "app.py"
     f.write_text("print('hi')")
     assert main(["--pattern", "nope", "--file", str(f)]) == 1
+
+
+def test_main_find_patterns(capsys):
+    assert main(["--find", "jwt"]) == 0
+    out = capsys.readouterr().out
+    assert "jwt_none" in out
+
+
+def test_main_find_no_match(capsys):
+    assert main(["--find", "xyzabc123"]) == 0
+    assert capsys.readouterr().out == ""
+
+
+def test_main_apply_alias_cli(tmp_path):
+    f = tmp_path / "app.py"
+    f.write_text('cursor.execute(f"SELECT * FROM users WHERE name = \'{name}\'")')
+    assert main(["--apply", "sql_injection", "--file", str(f)]) == 0
+    assert "?" in f.read_text()
+
+
+def test_main_io_error_returns_one(tmp_path, monkeypatch, capsys):
+    f = tmp_path / "app.py"
+    f.write_text('cursor.execute(f"SELECT * FROM users WHERE name = \'{name}\'")')
+
+    def raise_oserror(*args: object, **kwargs: object) -> None:
+        raise OSError("disk full")
+
+    monkeypatch.setattr("pathlib.Path.write_text", raise_oserror)
+    assert main(["--pattern", "sql_injection", "--file", str(f)]) == 1
+    assert "disk full" in capsys.readouterr().err
+
+
+def test_pattern_matcher_find_by_name():
+    matcher = PatternMatcher()
+    matches = matcher.find("sql injection")
+    assert any(p.name == "sql_injection" for p in matches)
+
+
+def test_pattern_matcher_find_no_match():
+    matcher = PatternMatcher()
+    assert matcher.find("xyzabc123") == []
+
+
+@pytest.mark.parametrize("pattern_name", list(all_patterns().keys()))
+def test_apply_fix_all_patterns(pattern_name, tmp_path):
+    pattern = all_patterns()[pattern_name]
+    ext = "py" if pattern.lang == "python" else "sol"
+    f = tmp_path / f"vuln.{ext}"
+    f.write_text(pattern.bad)
+    assert apply_fix(pattern_name, f) == 0
+    content = f.read_text()
+    assert pattern.good in content
+    assert content != pattern.bad

@@ -19,6 +19,12 @@ classifiers = [
 [project.optional-dependencies]
 dev = ["pytest>=7", "ruff>=0.4"]
 
+[project.scripts]
+bounty-hunter-toolkit = "bounty_hunter_toolkit:main"
+
+[tool.setuptools]
+py-modules = ["apply_fix", "bounty_hunter_toolkit"]
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 
