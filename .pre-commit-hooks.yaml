@@ -1,0 +1,7 @@
+- id: bounty-hunter-toolkit
+  name: bounty-hunter-toolkit
+  description: "Scan for security vulnerability patterns in Python and Solidity code"
+  entry: python -m sarif_export scan --file
+  language: python
+  types: [python]
+  require_serial: false
