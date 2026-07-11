@@ -6,7 +6,7 @@
 [![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
 [![Python](https://img.shields.io/badge/python-3.10%2B-blue)](https://python.org)
 
-> Production-ready security fix patterns for GitHub bounty issues. 51 patterns across Python, Solidity, and TypeScript. Zero dependencies.
+> Production-ready security fix patterns for GitHub bounty issues. 15 patterns across Python, Solidity, and TypeScript. Zero dependencies.
 
 ## Install
 
@@ -18,11 +18,11 @@ pip install bounty-hunter-toolkit
 
 Bug bounty programs on GitHub post issues like "Fix SQL injection in user.py" with bounties ranging from $5 to $500. This toolkit contains the **proven fix patterns** that resolve these issues, so you can apply a correct fix in minutes instead of researching from scratch.
 
-51 patterns. 67 tests. Real vulnerabilities found and fixed on repositories like ClankerNation, ai-research, TentOfTrials, and Nexussyn.
+15 patterns. 52 tests. Real vulnerabilities found and fixed on repositories like ClankerNation, ai-research, TentOfTrials, and Nexussyn.
 
 ## Pattern Categories
 
-### Python Security Fixes (27 patterns)
+### Python Security Fixes (10 patterns)
 
 | Vulnerability | Fix | Pattern |
 |--------------|-----|---------|
@@ -119,7 +119,7 @@ python -m bounty_hunter_toolkit --apply sql_injection --file app.py
 python -m pytest tests/ -v --tb=short
 ```
 
-67 tests. Each pattern has:
+52 tests. Each pattern has:
 - Test that vulnerable code triggers the detector
 - Test that fixed code passes
 - Test that the fix does not break functionality
@@ -132,7 +132,6 @@ python -m pytest tests/ -v --tb=short
 | ai-research | 27 security fixes | Posted |
 | TentOfTrials | 14 bounties | 3 emails |
 | Nexussyn | 4 fixes | $40 USDC |
-| **Total** | **86+ fixes** | **$417K+ potential** |
 
 ## License
 
@@ -140,6 +139,6 @@ MIT
 
 ## Links
 
-- [GitHub](https://github.com/aaameobius-crypto/bounty-hunter-toolkit)
+- [GitHub](https://github.com/AMEOBIUS-team/bounty-hunter-toolkit)
 - [PyPI](https://pypi.org/project/bounty-hunter-toolkit/)
-- [Full templates collection](https://github.com/aaameobius-crypto/darkbot-ai-templates)
+- [Full templates collection](https://github.com/AMEOBIUS-team/darkbot-ai-templates)
