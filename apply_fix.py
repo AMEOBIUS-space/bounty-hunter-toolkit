@@ -42,12 +42,16 @@ class FixPattern:
         desc: Human-readable description of what the fix does.
         bad: The vulnerable snippet to search for.
         good: The hardened snippet to replace it with.
+        cwe: CWE identifier (e.g. ``"CWE-89"``).
+        severity: Severity level: critical, high, medium, low.
     """
 
     lang: str
     desc: str
     bad: str
     good: str
+    cwe: str = ""
+    severity: str = "medium"
 
 
 PATTERNS: dict[str, FixPattern] = {
@@ -200,6 +204,56 @@ class PatternMatcher:
         This is a convenience wrapper around :func:`apply_fix`.
         """
         return apply_fix(pattern_name, file_path)
+
+
+CWE_MAP = {
+    "sql_injection": "CWE-89",
+    "jwt_none": "CWE-347",
+    "xxe": "CWE-611",
+    "ssti": "CWE-94",
+    "csrf": "CWE-352",
+    "open_redirect": "CWE-601",
+    "nosql_injection": "CWE-943",
+    "yaml_rce": "CWE-502",
+    "pickle_rce": "CWE-502",
+    "crlf_injection": "CWE-93",
+    "zero_amount": "CWE-20",
+    "reentrancy": "CWE-833",
+    "batch_ops": "CWE-1287",
+    "permit_replay": "CWE-294",
+    "indexed_events": "CWE-200",
+}
+
+SEVERITY_MAP = {
+    "sql_injection": "critical",
+    "jwt_none": "high",
+    "xxe": "high",
+    "ssti": "critical",
+    "csrf": "medium",
+    "open_redirect": "medium",
+    "nosql_injection": "critical",
+    "yaml_rce": "critical",
+    "pickle_rce": "critical",
+    "crlf_injection": "medium",
+    "zero_amount": "high",
+    "reentrancy": "critical",
+    "batch_ops": "medium",
+    "permit_replay": "high",
+    "indexed_events": "low",
+}
+
+
+def _enrich_patterns() -> None:
+    """Apply CWE IDs and severity to patterns after module load."""
+    for name, cwe in CWE_MAP.items():
+        for pattern_dict in (PATTERNS, SOLIDITY_PATTERNS):
+            if name in pattern_dict:
+                p = pattern_dict[name]
+                object.__setattr__(p, "cwe", cwe)
+                object.__setattr__(p, "severity", SEVERITY_MAP.get(name, "medium"))
+
+
+_enrich_patterns()
 
 
 def all_patterns() -> dict[str, FixPattern]:

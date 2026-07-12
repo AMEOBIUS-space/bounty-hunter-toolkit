@@ -29,6 +29,8 @@ def _pattern_to_rule(pattern_name: str, pattern: FixPattern) -> dict:
         "properties": {
             "language": pattern.lang,
             "tags": ["security", pattern.lang, "vulnerability"],
+            "cwe": getattr(pattern, "cwe", ""),
+            "severity": getattr(pattern, "severity", "medium"),
         },
     }
 
