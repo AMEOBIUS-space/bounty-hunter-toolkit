@@ -146,3 +146,17 @@ MIT
 Freelance portfolio: [https://ameobius-space.github.io/kwork-portfolio/](https://ameobius-space.github.io/kwork-portfolio/)
 
 Hire on LaborX: [https://laborx.com/gigs/python-automation-telegram-bots-cdp-api-integrations-105867](https://laborx.com/gigs/python-automation-telegram-bots-cdp-api-integrations-105867)
+
+
+## Real-World Use Cases
+
+- **LaborX batch apply**: 270+ applications via JWT Bearer + SOCKS5
+- **Kwork dialog monitoring**: CDP9224 conversation tracking at scale
+- **Gmail API**: OAuth2 automation for inbox monitoring across accounts
+- **Freelance pipeline**: Automated bid → apply → track → report system
+- **Bug bounty recon**: Subdomain enumeration + evidence collection
+
+## Articles
+
+- [Bug Bounty Automation](docs/bug-bounty-automation.md)
+
