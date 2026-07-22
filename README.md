@@ -142,3 +142,5 @@ MIT
 - [GitHub](https://github.com/AMEOBIUS-team/bounty-hunter-toolkit)
 - [PyPI](https://pypi.org/project/bounty-hunter-toolkit/)
 - [Full templates collection](https://github.com/AMEOBIUS-team/darkbot-ai-templates)
+
+Freelance portfolio: [https://ameobius-space.github.io/kwork-portfolio/](https://ameobius-space.github.io/kwork-portfolio/)
