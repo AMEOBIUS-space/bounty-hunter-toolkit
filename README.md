@@ -144,3 +144,5 @@ MIT
 - [Full templates collection](https://github.com/AMEOBIUS-team/darkbot-ai-templates)
 
 Freelance portfolio: [https://ameobius-space.github.io/kwork-portfolio/](https://ameobius-space.github.io/kwork-portfolio/)
+
+Hire on LaborX: [https://laborx.com/gigs/python-automation-telegram-bots-cdp-api-integrations-105867](https://laborx.com/gigs/python-automation-telegram-bots-cdp-api-integrations-105867)
