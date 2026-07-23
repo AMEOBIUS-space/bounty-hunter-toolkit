@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "bounty-hunter-toolkit"
-version = "1.4.0"
+version = "1.4.1"
 description = "Bug bounty automation: vulnerability fix patterns for Python and Solidity with SARIF export"
 readme = "README.md"
 license = {text = "MIT"}
